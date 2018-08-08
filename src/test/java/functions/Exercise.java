@@ -36,7 +36,7 @@ class ImmutableArrayList<E> {
 
   private E[] elementData;
 
-  //Don't worry about the methods below, it's fine, trust me.
+  //Don't worry about the methods below, they're fine, trust me.
   private ImmutableArrayList(E[] elements) { this.elementData = elements; }
   public static <E> ImmutableArrayList<E> of(E... elements) { return new ImmutableArrayList<>(elements); }
   public E get(int index) { return elementData[index]; }
@@ -44,7 +44,7 @@ class ImmutableArrayList<E> {
   public String toString() { return Arrays.toString(elementData); }
   public ImmutableArrayList<E> append(E newElement) { E[] newArray = Arrays.copyOf(elementData, size()+1); newArray[size()] = newElement; return new ImmutableArrayList(newArray); }
   public boolean equals(Object obj) { return obj instanceof ImmutableArrayList && Arrays.equals(this.elementData, ((ImmutableArrayList)obj).elementData); }
-  //Don't worry about the methods above, it's fine, trust me.
+  //Don't worry about the methods above, they're fine, trust me.
 
   public <T> ImmutableArrayList<T> map(
       //TODO Add argument SomeFunctionalInterface funcInt

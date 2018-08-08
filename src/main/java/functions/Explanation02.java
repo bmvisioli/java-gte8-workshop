@@ -19,17 +19,18 @@ public class Explanation02 {
 
     //No parameters, returns a T instance;
     Supplier<String> supplier = () -> "Supplier";
-    supplier.get();
+    System.out.println(supplier.get());
 
     //Same but throws a checked exception;
     Callable<String> callable = () -> "Callable";
-    try{ callable.call(); } catch (Exception ignored) {}
+    try{ System.out.println(callable.call()); } catch (Exception ignored) {}
 
     //One T parameter, no return, pure side effects;
     Consumer<String> consumer = (string) -> System.out.println(string);
 
     //One T parameter, returns a V instance;
     Function<String, String> function = (string) -> "Function with " + string;
+    System.out.println(function.apply("string"));
 
     //Two-arity versions
     BiConsumer<String, String> biConsumer;
@@ -46,7 +47,17 @@ public class Explanation02 {
     unaryOperator.apply("unaryOperator");
 
     //What about the utterly necessary twenty-two-arity function?
-    TwentyTwoParametersFunction notDoingIt;
+    TwentyTwoParametersFunction<
+        String, String, String, String,
+        String, String, String, String,
+        String, String, String, String,
+        String, String, String, String,
+        String, String, String, String,
+        String, String, String>
+        longAssFunction = (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v)
+        -> "22 parameters? What was I trying to do again?";
+
+    System.out.println(longAssFunction.dearLord("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v"));
 
     //Usage in a method
     printResult(() -> "I'm being supplied");
