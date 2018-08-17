@@ -4,7 +4,7 @@ public class Explanation01 {
 
   public static void main(String args[]) {
 
-    //Passing behaviour as parameter before Java 8 -> Inner Class
+    // Passing behaviour as parameter before Java 8 -> Anonymous Class
     new Thread(
         new Runnable() {
           @Override
@@ -14,7 +14,7 @@ public class Explanation01 {
         }
     ).start();
 
-    //Passing behaviour as parameter after Java 8 -> Lambda
+    // Passing behaviour as parameter after Java 8 -> Lambda
     new Thread(
         () -> System.out.println("I just felt like running (as a lambda)!")
     ).start();

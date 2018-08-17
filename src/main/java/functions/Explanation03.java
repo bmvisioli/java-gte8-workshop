@@ -35,11 +35,11 @@ public class Explanation03 {
     BiConsumer<String, String> biConsumerMR = person::tellMyName;
     biConsumerMR.accept("Saul", "Goodman");
 
-    //Method Reference on class methods
+    // Method Reference on class methods
     nameTeller(Person::new);
     nameTeller(Person::theOneWhoKnocks);
 
-    //Method Reference on instance methods
+    // Method Reference on instance methods
     namePrinter(person::sayMyName);
     nameAssigner(person::tellMyName);
 

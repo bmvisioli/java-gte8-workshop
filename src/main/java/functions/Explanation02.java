@@ -13,30 +13,30 @@ import java.util.function.UnaryOperator;
 public class Explanation02 {
 
   public static void main(String args[]) {
-    //No parameters, no return, pure side effects;
+    // No parameters, no return, pure side effects;
     Runnable runnable = () -> System.out.println("Runnable");
     runnable.run();
 
-    //No parameters, returns a T instance;
+    // No parameters, returns a T instance;
     Supplier<String> supplier = () -> "Supplier";
     System.out.println(supplier.get());
 
-    //Same but throws a checked exception;
+    // Same but throws a checked exception;
     Callable<String> callable = () -> "Callable";
     try{ System.out.println(callable.call()); } catch (Exception ignored) {}
 
-    //One T parameter, no return, pure side effects;
+    // One T parameter, no return, pure side effects;
     Consumer<String> consumer = (string) -> System.out.println(string);
 
-    //One T parameter, returns a V instance;
+    // One T parameter, returns a V instance;
     Function<String, String> function = (string) -> "Function with " + string;
     System.out.println(function.apply("string"));
 
-    //Two-arity versions
+    // Two-arity versions
     BiConsumer<String, String> biConsumer;
     BiFunction<String, String, String> biFunction;
 
-    //Specialized versions;
+    // Specialized versions;
     Predicate<String> predicate = (string) -> string.isEmpty();
     predicate.test("predicate");
 
@@ -46,7 +46,7 @@ public class Explanation02 {
     UnaryOperator<String> unaryOperator = (string) -> string;
     unaryOperator.apply("unaryOperator");
 
-    //What about the utterly necessary twenty-two-arity function?
+    // What about the utterly necessary twenty-two-arity function?
     TwentyTwoParametersFunction<
         String, String, String, String,
         String, String, String, String,
@@ -59,7 +59,7 @@ public class Explanation02 {
 
     System.out.println(longAssFunction.dearLord("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v"));
 
-    //Usage in a method
+    // Usage in a method
     printResult(() -> "I'm being supplied");
   }
 
