@@ -59,7 +59,7 @@ public class Explanation02 {
     initStream.findFirst(); // Termination operation
 
     try {
-      // Otherwise
+      // Otherwise...
       initStream.findAny();
     } catch(IllegalStateException e) {
       System.out.println(e.getMessage()); // "stream has already been operated upon or closed"
