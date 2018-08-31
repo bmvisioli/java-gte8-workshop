@@ -53,7 +53,6 @@ public class Explanation03 {
     System.out.println(nameSupplier.get());
   }
 
-
   public static void nameAssigner(BiConsumer<String, String> biConsumer) {
     biConsumer.accept("Jesse", "Pinkman");
   }

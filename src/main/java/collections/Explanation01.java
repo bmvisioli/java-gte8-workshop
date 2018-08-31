@@ -24,14 +24,14 @@ public class Explanation01 {
 
     System.out.println(String.join(" ", millennialsWay));
 
-    try{
+    try {
       millennialsWay.add("And then can I add some more entries?");
     } catch (UnsupportedOperationException ex) {
       System.out.println("Nope, you can't add elements, the collections created like this are immutable.");
       // And are all defined in ImmutableCollections
     }
 
-    //BTW: Iterable's new forEach method.
+    //BTW: Iterable's new forEach method for your side-effects.
     List.of("I've never been iterated like this").forEach(System.out::println);
   }
 
