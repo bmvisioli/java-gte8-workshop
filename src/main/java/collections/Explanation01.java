@@ -1,7 +1,9 @@
 package collections;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Explanation01 {
 
@@ -31,8 +33,24 @@ public class Explanation01 {
       // And are all defined in ImmutableCollections
     }
 
-    //BTW: Iterable's new forEach method for your side-effects.
+    // BTW: Iterable's new forEach method for your side-effects.
     List.of("I've never been iterated like this").forEach(System.out::println);
+
+    // And map got some extra methods as well
+    Map<String, Integer> leMap = new HashMap<>((Map.of("a", "a".hashCode(), "b", "b".hashCode())));
+
+    // Inserts the value for key; does nothing if key exist; return the value (cache?)
+    leMap.putIfAbsent("c", "c".hashCode());
+    leMap.computeIfAbsent("c", k -> k.hashCode());
+
+    // The other way around (return null if absent)
+    leMap.computeIfPresent("d", (k, v) -> k.hashCode());
+
+    leMap.compute("a", (k, v) -> v + 1); // updates/inserts the value of a key except IF... null, then removes
+    leMap.merge("e", "e".hashCode(), (o, n) -> o + n);
+
+    leMap.getOrDefault("f", "f".hashCode());
+
   }
 
 }
