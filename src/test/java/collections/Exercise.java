@@ -4,11 +4,6 @@ import org.junit.jupiter.api.Test;
 
 public class Exercise {
 
-  class Person {
-    String name;
-    int age;
-
-  }
 
   // Composition of streams operations
   // Cache with Maps
@@ -19,4 +14,15 @@ public class Exercise {
 
   }
 
+}
+
+class Person {
+
+  String name;
+  int age;
+
+  Person(String name, int age) {
+    this.name = name;
+    this.age = age;
+  }
 }

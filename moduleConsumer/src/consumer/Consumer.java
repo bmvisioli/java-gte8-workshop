@@ -4,16 +4,16 @@ import java.util.ServiceLoader;
 import provider.exposed.Exposed;
 import provider.exposed.ExposedInterface;
 
-public class External {
+public class Consumer {
 
   public static void main(String args[]) {
 
     System.out.println(Exposed.exposed());
     // System.out.println("trying to access " + Hidden.hidden());
 
-    // callHiddenReflexibly();
-    // callOnlyByReflection();
-    // callServiceImplementation();
+    callHiddenReflexively();
+    callOnlyByReflection();
+    callServiceImplementation();
 
   }
 
@@ -21,21 +21,21 @@ public class External {
     return new Exposed();
   }
 
-  private static void callHiddenReflexibly() {
+  private static void callHiddenReflexively() {
     try {
-      var hiddenReflect = Class.forName("com.lunatech.modularized.hidden.Hidden");
+      var hiddenReflect = Class.forName("provider.hidden.Hidden");
       var hiddenMethod = hiddenReflect.getMethod("hidden", null);
       var hiddenResult = hiddenMethod.invoke(hiddenReflect.newInstance());
 
-      System.out.println("Calling Hidden reflectively results in " + hiddenResult);
+      System.out.println("Calling Hidden reflexively results in " + hiddenResult);
     } catch(Exception e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
     }
   }
 
   private static void callOnlyByReflection() {
     try {
-      var onlyReflection = Class.forName("com.lunatech.modularized.reflection.OnlyByReflection");
+      var onlyReflection = Class.forName("provider.reflection.OnlyByReflection");
       var onlyReflectionMethod = onlyReflection.getMethod("reflectivelyAccessible", null);
       var onlyReflectionResult = onlyReflectionMethod.invoke(onlyReflection.newInstance());
 
