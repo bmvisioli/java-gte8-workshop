@@ -3,26 +3,32 @@ package monads;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CompletableFutureExplanation {
+public class Futures {
 
-  public static void main(String args[])
-      throws ExecutionException, InterruptedException, TimeoutException {
+  public static void main(String[] args)
+      throws Exception {
 
-    Callable<Integer> eventualResult = () -> delayedResult(1, 42);
+    /*
+          ______           __
+         / ____/  __  __  / /_  __  __   _____  ___    _____
+        / /_     / / / / / __/ / / / /  / ___/ / _ \  / ___/
+       / __/    / /_/ / / /_  / /_/ /  / /    /  __/ (__  )
+      /_/       \__,_/  \__/  \__,_/  /_/     \___/ /____/
+
+     */
+
 
     // Before Java 8 we had to deal with the inconvenient Future/FutureTask classes
     ExecutorService exec = Executors.newSingleThreadExecutor();
-
+    Callable<Integer> eventualResult = () -> delayedResult(1, 42);
     Future<Integer> futureInt = exec.submit(eventualResult);
 
     while (!futureInt.isDone()) {
@@ -84,7 +90,7 @@ public class CompletableFutureExplanation {
 
   }
 
-  /** Utility method to avoid some boilerplate try-catches*/
+  /** Utility method to avoid some boilerplate try-catches */
   static <E> E delayedResult(long seconds, E result) {
     try {
       Thread.sleep(seconds * 1000);

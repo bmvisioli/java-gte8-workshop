@@ -5,13 +5,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Explanation01 {
+public class Collections {
 
-  public static void main(String args[]) {
+  public static void main(String[] args) {
+
+    /*
+       ______           __    __                __     _
+      / ____/  ____    / /   / /  ___   _____  / /_   (_)  ____    ____    _____
+     / /      / __ \  / /   / /  / _ \ / ___/ / __/  / /  / __ \  / __ \  / ___/
+    / /___   / /_/ / / /   / /  /  __// /__  / /_   / /  / /_/ / / / / / (__  )
+    \____/   \____/ /_/   /_/   \___/ \___/  \__/  /_/   \____/ /_/ /_/ /____/
+
+    */
 
     // Instantiating collections with initial values before Java 8 - notice the double {{ }}
-    // Inner-class with init code block
     List<String> oldSchool = new ArrayList<>() {{
+      // Inner-class with init code block
       add("Don't");
       add("do");
       add("{{ }}");
@@ -41,7 +50,7 @@ public class Explanation01 {
 
     // Inserts the value for key; does nothing if key exist; return the value (cache?)
     leMap.putIfAbsent("c", "c".hashCode());
-    leMap.computeIfAbsent("c", k -> k.hashCode());
+    leMap.computeIfAbsent("c", String::hashCode);
 
     // The other way around (return null if absent)
     leMap.computeIfPresent("d", (k, v) -> k.hashCode());

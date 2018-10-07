@@ -7,6 +7,14 @@ import java.util.List;
 
 public interface Interfaces {
 
+  /*
+       ____           __                   ____
+      /  _/   ____   / /_  ___    _____   / __/  ____ _  _____  ___    _____
+      / /    / __ \ / __/ / _ \  / ___/  / /_   / __ `/ / ___/ / _ \  / ___/
+    _/ /    / / / // /_  /  __/ / /     / __/  / /_/ / / /__  /  __/ (__  )
+   /___/   /_/ /_/ \__/  \___/ /_/     /_/     \__,_/  \___/  \___/ /____/
+  */
+
   String A_CONSTANT = "I'm available since Java 7 but you knew that already";
 
   // Since Java 8 interfaces can have concrete methods with keyword default
@@ -33,7 +41,7 @@ public interface Interfaces {
 
   class Main {
 
-    public static void main(String args[]){
+    public static void main(String[] args){
 
       System.out.println("Have I mentioned inner types in interfaces? Since 1.7");
 

@@ -10,9 +10,34 @@ import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 import java.util.function.UnaryOperator;
 
-public class Explanation02 {
+public class Functions {
 
-  public static void main(String args[]) {
+  public static void main(String[] args) {
+
+    /*
+        ______                          __     _
+       / ____/  __  __   ____   _____  / /_   (_)  ____    ____    _____
+      / /_     / / / /  / __ \ / ___/ / __/  / /  / __ \  / __ \  / ___/
+     / __/    / /_/ /  / / / // /__  / /_   / /  / /_/ / / / / / (__  )
+    /_/       \__,_/  /_/ /_/ \___/  \__/  /_/   \____/ /_/ /_/ /____/
+
+    */
+
+    // Passing behaviour as parameter before Java 8 -> Anonymous Class
+    new Thread(
+        new Runnable() {
+          @Override
+          public void run() {
+            System.out.println("I just felt like running (as an inner class)!");
+          }
+        }
+    ).start();
+
+    // Passing behaviour as parameter after Java 8 -> Lambda
+    new Thread(
+        () -> System.out.println("I just felt like running (as a lambda)!")
+    ).start();
+
     // No parameters, no return, pure side effects;
     Runnable runnable = () -> System.out.println("Runnable");
     runnable.run();

@@ -1,4 +1,4 @@
-package flows;
+package apis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +7,20 @@ import java.util.concurrent.Flow.Subscription;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.SubmissionPublisher;
 
-public class Explanation01 {
+public class Flow {
 
   /*
+      ______    __
+     / ____/   / /  ____  _      __
+    / /_      / /  / __ \| | /| / /
+   / __/     / /  / /_/ /| |/ |/ /
+  /_/       /_/   \____/ |__/|__/
+
     Flow API is a specification for Reactive Streams and is available since Java 9
 
     It's a reaction to well-established Reactive Streams implementations for Java:
     * RxJava
-    * Vertx's
+    * Vert.x
     * Project Reactor
     * ...
 
@@ -25,18 +31,15 @@ public class Explanation01 {
     - Processor - an intermediary subscriber and publisher (for map, filter...);
    */
 
-  public static void main(String args[]) {
-
-    int bufferCapacity = 1000;
+  public static void main(String[] args) {
 
     // This is a default implementation of a Flow.Publisher
-    SubmissionPublisher<String> publisher = new SubmissionPublisher<>(ForkJoinPool.commonPool(), bufferCapacity);
+    SubmissionPublisher<String> publisher = new SubmissionPublisher<>(ForkJoinPool.commonPool(), 1000);
 
     Accumulator<String> subscriber1 = new Accumulator<>("1", 1000);
     Accumulator<String> subscriber2 = new Accumulator<>("2", 3000);
     publisher.subscribe(subscriber1);
     publisher.subscribe(subscriber2);
-
 
     var listOfItems = List.of("Item 1", "Item 2", "Item 3");
     // Submit called below will

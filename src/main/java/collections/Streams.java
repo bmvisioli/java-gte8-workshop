@@ -6,9 +6,17 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class  Explanation02 {
+public class Streams {
 
-  public static void main(String args[]) {
+  public static void main(String[] args) {
+
+    /*
+       _____   __
+      / ___/  / /_   _____  ___   ____ _   ____ ___    _____
+      \__ \  / __/  / ___/ / _ \ / __ `/  / __ `__ \  / ___/
+     ___/ / / /_   / /    /  __// /_/ /  / / / / / / (__  )
+    /____/  \__/  /_/     \___/ \__,_/  /_/ /_/ /_/ /____/
+    */
 
     // Steams offer a way to process collections in a, well, streaming fashion
     // We can create them using factory methods
