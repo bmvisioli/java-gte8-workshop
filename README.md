@@ -28,7 +28,8 @@ Setting global/local version<br/>
 
 ## Compiling and Running Modules
 
-`javac -d target/mods/provider --module-path provider $(find provider -name "*.java")`<br/>
-`javac -d target/mods/consumer --module-path target/mods/provider:consumer $(find consumer -name "*.java")`<br/>
-`jlink --module-path target/mods/ --add-modules consumer --output myJre --launcher consumer=consumer/consumer.Consumer`<br/>
-`./myJre/bin/consumer`<br/>
+
+`javac -d target/mods/content --module-path content $(find content/src/main -name "*.java")`<br/>
+`javac -d target/mods/moduleConsumer --module-path target/mods/content:moduleConsumer $(find moduleConsumer -name "*.java")`<br/>
+`jlink --module-path target/mods/ --add-modules moduleConsumer --output myJre --launcher moduleConsumer=moduleConsumer/consumer.Consumer`<br/>
+`./myJre/bin/moduleConsumer`<br/>

@@ -17,6 +17,10 @@
     </dependency>
   </dependencies>
 
+  <modules>
+    <module>content</module>
+  </modules>
+
   <build>
     <plugins>
       <plugin>
