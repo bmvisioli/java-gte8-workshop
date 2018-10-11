@@ -24,8 +24,8 @@ public class Http {
 
 
     Java 9 introduced an experimental HttpClient feature that was later
-    made standard by Java 11. It uses HTTP2 by default and integrates to
-    async pipeline.
+    made standard by Java 11. It uses HTTP2 by default and integrates well
+    to async pipelines.
      */
 
     var client = HttpClient.newBuilder()
@@ -39,6 +39,7 @@ public class Http {
         .GET()
         .uri(URI.create("https://api.ipify.org?format=json"))
         .header("Accept", "application/json")
+        .timeout(Duration.ofSeconds(5))
         .build();
 
     /* Requesting
@@ -47,6 +48,12 @@ public class Http {
      */
     var futureResponse = client.sendAsync(request, BodyHandlers.ofString());
 
+    /*
+      Response is HttpResponse<Type> where type depends on the BodyHandler you used before
+      BodyHandlers.ofString()   -> HttpResponse<String>
+      BodyHandlers.discarding() -> HttpResponse<Void>
+      BodyHandlers.ofLines()    -> HttpResponse<Stream<String>>
+     */
     futureResponse.whenComplete((resp, ex) -> {
       println("Response Status Code [" + resp.statusCode() + "]");
       println("Response Body " + resp.body());

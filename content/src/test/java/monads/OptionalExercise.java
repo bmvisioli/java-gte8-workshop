@@ -1,7 +1,8 @@
-package test.java.monads;
+package monads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static boilerplate.Boilerplate.*;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -18,7 +19,7 @@ public class OptionalExercise {
     var initial = Stream.of("Not me").filter("You?"::equals).findFirst();
     var expected = Optional.of("Me then");
 
-    var actual = initial;
+    var actual = __;
 
     assertEquals(expected, actual);
 
@@ -33,14 +34,14 @@ public class OptionalExercise {
     var initial = Stream.of("Not me").filter("You?"::equals).findFirst();
     var expected = MyException.class;
 
-    Executable actual = () -> initial.get();
+    Executable actual = () -> __.wait();
 
     assertThrows(expected, actual);
 
   }
 
   @Test
-  @DisplayName("Optional combine")
+  @DisplayName("Optional alternatives")
   public void testOptionalCombine() {
 
     var initial0 = Stream.of("Not me").filter("You?"::equals).findFirst();
@@ -48,13 +49,14 @@ public class OptionalExercise {
 
     var expected = Optional.of("Me then");
 
-    var actual = initial0;
+    // Check initial0 first and then initial1
+    var actual = __;
 
     assertEquals(expected, actual);
   }
 
   @Test
-  @DisplayName("Optional append")
+  @DisplayName("Optional combine")
   public void testOptionalAppend() {
 
     var initial0 = Stream.of("You").filter("You"::equals).findFirst();
@@ -62,7 +64,7 @@ public class OptionalExercise {
 
     var expected = Optional.of("You and me");
 
-    var actual = initial0;
+    var actual = __;
 
     assertEquals(expected, actual);
   }

@@ -1,5 +1,6 @@
-package test.java.functions;
+package functions;
 
+import static boilerplate.Boilerplate.__;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
@@ -15,10 +16,10 @@ public class Exercise {
   @DisplayName("Map from collection of Integer to collection of Double")
   public void mapTest() {
 
-    ImmutableArrayList<Integer> initial = ImmutableArrayList.of(1,2,3);
-    ImmutableArrayList<Double> expected = ImmutableArrayList.of(1d,2d,3d);
+    var initial = ImmutableArrayList.of(1,2,3);
+    var expected = ImmutableArrayList.of(1d,2d,3d);
 
-    ImmutableArrayList actual = initial.map(); //TODO add lambda
+    var actual = __; //TODO add lambda
 
     assertEquals(expected, actual);
   }
@@ -26,22 +27,22 @@ public class Exercise {
   @Test
   @DisplayName("ForEach accumulating to AtomicInteger")
   public void forEachTest() {
-    ImmutableArrayList<Integer> initial = ImmutableArrayList.of(1,2,3);
-    int expected = 6;
+    var initial = ImmutableArrayList.of(1,2,3);
+    var expected = 6;
 
-    AtomicInteger actual = new AtomicInteger(0);
+    var actual = new AtomicInteger(0);
     initial.forEach(); //TODO add lambda to accumulate into the object above
 
     assertEquals(expected, actual.intValue());
   }
 
   @Test
-  @DisplayName("Filter integer divisible by 2")
+  @DisplayName("Filter only even")
   public void filterTest() {
-    ImmutableArrayList<Integer> initial = ImmutableArrayList.of(1,2,3,4,5,6);
-    ImmutableArrayList<Integer> expected = ImmutableArrayList.of(2,4,6);
+    var initial = ImmutableArrayList.of(1,2,3,4,5,6);
+    var expected = ImmutableArrayList.of(2,4,6);
 
-    ImmutableArrayList<Integer> actual = initial.filter(); //TODO add lambda
+    var actual = __; //TODO add lambda
 
     assertEquals(expected, actual);
   }
@@ -49,10 +50,10 @@ public class Exercise {
   @Test
   @DisplayName("FoldLeft with times function")
   public void foldLeft() {
-    ImmutableArrayList<Integer> initial = ImmutableArrayList.of(1,2,3,4,5,6);
+    var initial = ImmutableArrayList.of(1,2,3,4,5,6);
     var expected = Double.valueOf(720);
 
-    var actual = initial.foldLeft(null); //TODO add lambda and initial arg
+    var actual = __; //TODO add lambda and initial arg
 
     assertEquals(expected, actual);
   }
@@ -103,11 +104,11 @@ class ImmutableArrayList<E> {
     return result;
   }
 
-  //Don't worry about the methods below, they're fine, trust me.
+  // Don't worry about the methods below, they're fine, trust me.
   private ImmutableArrayList(E[] elements) { this.elementData = elements; }
   public static <E> ImmutableArrayList<E> of(E... elements) { return new ImmutableArrayList<>(elements); }
   public int size() { return elementData.length; }
   public String toString() { return Arrays.toString(elementData); }
   public boolean equals(Object obj) { return obj instanceof ImmutableArrayList && Arrays.equals(this.elementData, ((ImmutableArrayList)obj).elementData); }
-  //Don't worry about the methods above, they're fine, trust me.
+  // Don't worry about the methods above, they're fine, trust me.
 }

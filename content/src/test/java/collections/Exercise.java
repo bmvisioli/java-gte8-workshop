@@ -1,13 +1,12 @@
 package collections;
 
-import static boilerplate.Boilerplate.delayedResult;
+import static boilerplate.Boilerplate.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.function.BiConsumer;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -22,17 +21,17 @@ public class Exercise {
 
     // Check list contains only odd numbers
     var expected0 = false;
-    var actual0 = true;
+    var actual0 = __;
     assertEquals(expected0, actual0);
 
     // Check list contains at least one even number
     var expected1 = true;
-    var actual1 = false;
+    var actual1 = __;
     assertEquals(expected1, actual1);
 
     // Find first prime number
     var expected2 = Optional.of(29);
-    var actual2 = Optional.empty();
+    var actual2 = __;
     assertEquals(expected2, actual2);
   }
 
@@ -52,7 +51,7 @@ public class Exercise {
         'C', List.of("CO", "CA"),
         'D', List.of("DO", "DE"));
 
-    var actual = initial;
+    var actual = __;
 
     assertEquals(expected, actual);
   }
@@ -66,86 +65,107 @@ public class Exercise {
     var expected = "NeverOddOrEven";
 
     // Tip: Don't use array of chars
-    var actual = initial.stream()
-        .map(s -> s.split(""))
-        .flatMap(Arrays::stream)
-        .reduce("", (c,r) -> r+c);
+    var actual = __;
     assertEquals(expected, actual);
 
   }
 
   // The following class will be used in the next two exercises
-  class Database {
-    String preffix = "Cached";
+  class DatabaseAccess {
+    String prefix = "Cached";
 
-    StringBuffer query(Integer id) {
-      return doQuery(id);
+    StringBuffer queryCached(Integer id) {
+      return internalDoQuery(id);
     }
 
-    /** A very costly operation */
-    private StringBuffer doQuery(Integer id) {
-      return delayedResult(1, new StringBuffer(preffix + id));
+    StringBuffer queryFresh(Integer id, String newPrefix) {
+      this.prefix = newPrefix;
+      return internalDoQuery(id);
     }
 
-    int getPoolSize() { return 0; }
+    int getCacheSize() {
+      return 0;
+    }
+
+    /** A "very" costly operation that we want to avoid as much as possible */
+    private StringBuffer internalDoQuery(Integer id) { return delayedResult(1, new StringBuffer(prefix + id)); }
+
   }
 
   @Test
-  @DisplayName("Database cached result")
+  @DisplayName("DatabaseAccess cached result")
   void cache() {
 
     /*
       TODO
-      Update Database class so that it caches calls
+      Update DatabaseAccess class so that queryCached returns
       in a way that for the same parameter X the result is
       always the same object Y
     */
 
-    var db = new Database();
+    var db = new DatabaseAccess();
 
     var initial = List.of(1,2,3);
 
     var expected = List.of(
-        db.query(1),
-        db.query(2),
-        db.query(3)
+        db.queryCached(1),
+        db.queryCached(2),
+        db.queryCached(3)
     );
-    var expectedPoolSize = 3;
+    var expectedCacheSize = 3;
 
-    var actual = initial; // TODO Transform the elements to StringBuffer using the "pool"
-    var actualPoolSize = db.getPoolSize();
+    var actual = (List<StringBuffer>) __; // TODO Transform the elements to StringBuffer using the "db"
+    var actualPoolSize = db.getCacheSize();
 
-    // Stream "Zip" and then forEachPair assert== (for-by-index would work too but hey: streams 🤘)
-    IntStream.range(0, actual.size())
-        .boxed()
-        .collect(Collectors.toMap(expected::get, actual::get))
-        .forEach(Assertions::assertSame);
+    matchAllElements(expected, actual, Assertions::assertSame);
 
-    assertEquals(expectedPoolSize, actualPoolSize);
+    assertEquals(expectedCacheSize, actualPoolSize);
   }
 
   @Test
-  @DisplayName("Database cache update")
+  @DisplayName("DatabaseAccess cache update")
   void cacheUpdate() {
 
     /*
       TODO
-      Update Database class so a cache entry
-      can be update.
+      Update DatabaseAccess class so that queryFresh
+      updates a cache entry and returns it.
     */
 
-    var pool = new Database();
+    var db = new DatabaseAccess();
 
-    var initial = "";
+    var actual = List.of(
+        db.queryCached(1),
+        db.queryCached(1),
+        db.queryFresh(1, "Refreshed"),
+        db.queryCached(1)
 
-    var actual = initial; // TODO Transform the elements to StringBuffer using the "pool"
-    var actualPoolSize = pool.getPoolSize();
+    );
 
-    // Stream "Zip" and then forEachPair assert== (for-by-index would work too but hey: streams 🤘)
+    var expected = List.of(
+        // 0-1 should be same instance
+        actual.get(0),
+        actual.get(0),
+        // 2-3 Should be same instance
+        actual.get(2),
+        actual.get(2)
+    );
+    var expectedCacheSize = 1;
 
+    var actualCacheSize = db.getCacheSize();
+
+    matchAllElements(expected, actual, Assertions::assertSame);
+
+    assertEquals(expectedCacheSize, actualCacheSize);
 
   }
 
+  private <E> void matchAllElements(List<E> expected, List<E> actual, BiConsumer<E,E> assertion) {
+    assertEquals(expected.size(), actual.size());
+    // for-by-index would also work but hey: streams 🤘
+    IntStream.range(0, actual.size()).boxed()
+        .forEach(i -> assertion.accept(expected.get(i), actual.get(i)));
+  }
 
 
 }

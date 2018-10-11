@@ -43,7 +43,7 @@ public class Optionals {
     valueInt = optOne.orElse(0);                              // Returns the value or the default
     valueInt = optOne.orElseGet(() -> 0);                           // Returns the value or the default after evaluation of function;
     valueInt = optOne.orElseThrow();                                // Returns the value or throws NoSuchElementException
-    valueInt = optOne.orElseThrow(IllegalArgumentException::new);   // You can guess, but beware that this exception is Checked!
+    valueInt = optOne.orElseThrow(IllegalArgumentException::new);   // You can guess
     valueInt = optOne.isPresent() ? optEmpty.get() : 0;             // Utter evil in most cases
 
     // You can also perform some side-effects depending on the presence of the value

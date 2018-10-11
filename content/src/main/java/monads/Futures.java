@@ -39,7 +39,7 @@ public class Futures {
       println("Waiting, go get a biscuit.");
     } // This line is redundant as .get() blocks the thread;
     println("The future arrived and it is: " + futureInt
-        .get()); // For fuck's sake, .get() throws a CHECKED exception!
+        .get()); // For ...'s sake, .get() throws a CHECKED exception!
 
     // But that Future is in the past (wink) as Java 8 introduced the much friendlier CompletableFuture
     Supplier<Integer> eventualResult2 = () -> delayedResult(1, 42);
@@ -53,7 +53,7 @@ public class Futures {
     completableFuture.get(1, TimeUnit.SECONDS); // Blocks for at most this amount of time and then throws Exception
     completableFuture.getNow(0); // Gets the value if already available or return a default
 
-    // And CompletableFutures have tons of goodies, like future chaining
+    // And CompletableFutures have tons of goodies, like method chaining
     completableFuture
         .thenRun(() -> println("What's beyond the Future?")) // chaining with blocking code
         .thenRunAsync(() -> println("If you need me I'll be in another thread;")) // runs in...
