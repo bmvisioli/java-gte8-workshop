@@ -43,7 +43,7 @@ public class Futures {
 
     // But that Future is in the past (wink) as Java 8 introduced the much friendlier CompletableFuture
     Supplier<Integer> eventualResult2 = () -> delayedResult(1, 42);
-    CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(eventualResult2);
+    var completableFuture = CompletableFuture.supplyAsync(eventualResult2);
 
     // Obtaining the value non-blocking way
     completableFuture.whenComplete((result, exception) -> println("A new future arrived and it is: " + result));

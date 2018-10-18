@@ -1,7 +1,5 @@
 package misc;
 
-import static boilerplate.Boilerplate.println;
-
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.math.BigDecimal;
@@ -36,7 +34,7 @@ public class GarbageCollector {
 
         Before Java 9 it could be enabled using -XX:+UseG1GC
 
-        java -XX:+UseG1GC -Xlog:gc:stdout:time src/main/java/misc/GarbageCollector.java
+        java -XX:+UseG1GC -Xlog:gc:stdout:time content/src/main/java/misc/GarbageCollector.java
 
       Epsilon
         Java 11 introduced two new experimental GCs, the first is Epsilon
@@ -45,7 +43,7 @@ public class GarbageCollector {
         It can be enabled using:
           -XX:+UnlockExperimentalVMOptions -XX:+UseEpsilonGC
 
-        java -XX:+UnlockExperimentalVMOptions -XX:+UseEpsilonGC -Xlog:gc:stdout:time src/main/java/misc/GarbageCollector.java
+        java -XX:+UnlockExperimentalVMOptions -XX:+UseEpsilonGC -Xlog:gc:stdout:time content/src/main/java/misc/GarbageCollector.java
 
       ZGC
         The second is the Z garbage collector which is prepared to deal with
@@ -55,14 +53,14 @@ public class GarbageCollector {
 
         ATM ONLY for Linux/x64!
 
-        java -XX:+UnlockExperimentalVMOptions -XX:+UseZGC -Xlog:gc:stdout:time src/main/java/misc/GarbageCollector.java
+        java -XX:+UnlockExperimentalVMOptions -XX:+UseZGC -Xlog:gc:stdout:time content/src/main/java/misc/GarbageCollector.java
 
       CMS GC:
-        java -XX:+UseConcMarkSweepGC -Xlog:gc:stdout:time src/main/java/misc/GarbageCollector.java
+        java -XX:+UseConcMarkSweepGC -Xlog:gc:stdout:time content/src/main/java/misc/GarbageCollector.java
       Parallel GC:
-        java -XX:+UseParallelGC -Xlog:gc:stdout:time src/main/java/misc/GarbageCollector.java
+        java -XX:+UseParallelGC -Xlog:gc:stdout:time content/src/main/java/misc/GarbageCollector.java
       Serial GC:
-        java -XX:+UseSerialGC -Xlog:gc:stdout:time src/main/java/misc/GarbageCollector.java
+        java -XX:+UseSerialGC -Xlog:gc:stdout:time content/src/main/java/misc/GarbageCollector.java
 
       Selecting a collector:
         https://docs.oracle.com/en/java/javase/11/gctuning/available-collectors.html#GUID-414C9D95-297E-4EE3-B0D9-36F158A83393
@@ -70,7 +68,7 @@ public class GarbageCollector {
      */
 
     ManagementFactory.getGarbageCollectorMXBeans()
-        .forEach(gb -> println("Garbage Collector in Use: " + gb.getName()));
+        .forEach(gb -> System.out.println("Garbage Collector in Use: " + gb.getName()));
 
     // Pause so we can see the GC
     System.in.read();
@@ -78,7 +76,7 @@ public class GarbageCollector {
     // And now let's test our GC creating some millions of Objects
     var now = Instant.now();
 
-    var memUsage = IntStream.range(0, 60 * kk)
+    var memUsage = IntStream.range(0, 50 * kk)
         .parallel()
         .boxed()
         .map(BigDecimal::valueOf)
@@ -88,7 +86,7 @@ public class GarbageCollector {
     var then = Instant.now();
     var duration = Duration.between(now, then);
 
-    println("Duration " + duration.getSeconds() + "s, memory usage " + memUsage);
+    System.out.println(("Duration " + duration.getSeconds() + "s, memory usage " + memUsage));
 
   }
 
@@ -102,7 +100,7 @@ public class GarbageCollector {
     var freeMem = runtime.freeMemory();
     var totalMemory = runtime.totalMemory();
     var usedMem = (totalMemory - freeMem) / mb;
-    if(intCount % kk == 0) println("Heap used " + usedMem + " MB");
+    if(intCount % kk == 0) System.out.println(("Heap used " + usedMem + " MB"));
     return usedMem;
   }
 

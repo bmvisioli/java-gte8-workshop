@@ -21,6 +21,7 @@ public class Collections {
     */
 
     // Instantiating collections with initial values before Java 8 - notice the double {{ }}
+    var arrary = new int[] {1,2,3};
     List<String> oldSchool = new ArrayList<>() {{
       // Inner-class with init code block
       add("Don't");
@@ -32,7 +33,7 @@ public class Collections {
     println(String.join(" ", oldSchool));
 
     // Instantiating collections with initial values after Java 8 - Factory Methods!
-    List<String> millennialsWay = List.of("Use", "factory", "methods", "instead");
+    var millennialsWay = List.of("Use", "factory", "methods", "instead");
     // Also Map.of() and Set.of()...
 
     println(String.join(" ", millennialsWay));
